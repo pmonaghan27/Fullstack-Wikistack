@@ -21,7 +21,7 @@ const Page = db.define('pages', {
     }
   });
 
-  Page.beforeSave((pageInstance, optionsObject) => {
+  Page.beforeCreate((pageInstance, optionsObject) => {
     pageInstance.slug = generateSlug(pageInstance.title);
   })
 

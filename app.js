@@ -34,7 +34,7 @@ const PORT = 1337;
 const init = async () => {
     console.log('App init, start sync');
     
-    await db.sync({force:true});
+    await db.sync();
 
     console.log('App init, finish sync');
 
