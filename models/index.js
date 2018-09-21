@@ -4,7 +4,9 @@ const db = new Sequelize('postgres://localhost:5432/wikistack', {logging: false}
 const Page = db.define('pages', {
     title: {
       type: Sequelize.STRING,
-      allowNull: false
+      validate: {
+        notEmpty: true
+      }
     },
     slug: {
       type: Sequelize.STRING,
@@ -18,6 +20,16 @@ const Page = db.define('pages', {
       type: Sequelize.ENUM('open', 'closed')
     }
   });
+
+  Page.beforeSave((pageInstance, optionsObject) => {
+    pageInstance.slug = generateSlug(pageInstance.title);
+  })
+
+  function generateSlug (title) {
+    // Removes all non-alphanumeric characters from title
+    // And make whitespace underscore
+    return title.replace(/\s+/g, '_').replace(/\W/g, '');
+  }
   
   const User = db.define('users', {
     name: {
@@ -35,6 +47,6 @@ const Page = db.define('pages', {
 
   // const models = { db }
   
-  module.exports = db;
+  module.exports = { db, Page, User };
   
 

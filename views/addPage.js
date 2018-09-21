@@ -37,7 +37,10 @@ module.exports = () => layout(html`
     <div class="form-group">
       <label for="status" class="col-sm-2 control-label">Page Status</label>
       <div class="col-sm-10">
-        <input id="status" name="status" type="text" class="form-control"/>
+        <select id="status" name="status" class="form-control">
+          <option value="open">open</option>
+          <option value="closed">closed</option>
+        </select>
       </div>
     </div>
 
