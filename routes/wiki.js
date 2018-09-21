@@ -11,12 +11,6 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:slug', (req, res, next) => {
-    res.send(`hit dynamic route at ${req.params.slug}`);
-  });
-
-
-
 router.post('/', async (req, res, next) => {
     try {
         //submit new page to db
@@ -54,5 +48,15 @@ router.get('/add', async (req, res, next) => {
     }
 });
 
+router.get('/:slug', async (req, res, next) => {
+    try{
+        const foundPage = await Page.findOne({
+        where: {slug: req.params.slug}
+        })
+        res.json(foundPage);
+    } catch(error) {
+        next(error);
+    }
+});
 
 module.exports = router;
